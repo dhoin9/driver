@@ -3,11 +3,9 @@ package pl.coderslab.question;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.upload.Upload;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -18,6 +16,7 @@ public class Question {
     private long id;
     private String description;
     private String image;
-
+    @ManyToOne
+    private Upload upload;
 
 }

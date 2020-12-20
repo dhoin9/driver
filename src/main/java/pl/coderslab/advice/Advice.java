@@ -3,6 +3,7 @@ package pl.coderslab.advice;
 import lombok.Getter;
 import lombok.Setter;
 import pl.coderslab.question.Question;
+import pl.coderslab.upload.Upload;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,8 +23,8 @@ public class Advice {
     private String video;
     @OneToMany
     private List<Question> question;
-    @Column(name = "upload_dir")
-    private String uploadDir;
+   @ManyToOne
+   private Upload upload;
 
 
 

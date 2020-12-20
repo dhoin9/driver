@@ -3,6 +3,7 @@ package pl.coderslab.advice;
 import org.springframework.stereotype.Component;
 import pl.coderslab.question.QuestionService;
 import pl.coderslab.upload.FileService;
+import pl.coderslab.upload.Upload;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -57,14 +58,20 @@ public class JpaAdviceService implements AdviceService {
     @Override
     public AdviceDTO getDTO(Advice advice) {
        return new AdviceDTO(advice.getId(), advice.getTitle(), advice.getDescription(), advice.getDateTime(),
-               advice.getPopularity(), advice.getVideo(), questionService.getListQuestionDTO(advice.getQuestion()));}
+               advice.getPopularity(), path(advice.getUpload()), questionService.getListQuestionDTO(advice.getQuestion()));}
 
     @Override
     public List<AdviceDTO> getListDTO(List<Advice> list) {
         return list.stream().
                 map(advice -> new AdviceDTO(advice.getId(), advice.getTitle(), advice.getDescription(), advice.getDateTime(),
-                        advice.getPopularity(), advice.getVideo(), questionService.getListQuestionDTO(advice.getQuestion()))).
+                        advice.getPopularity(), path(advice.getUpload()), questionService.getListQuestionDTO(advice.getQuestion()))).
                 collect(Collectors.toList());
     }
-
+    String path(Upload upload){
+        if(upload==null){
+            return "";
+        }else {
+            return upload.getFullPath();
+        }
+    }
 }

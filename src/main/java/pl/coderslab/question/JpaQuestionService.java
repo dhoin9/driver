@@ -37,7 +37,7 @@ public class JpaQuestionService implements QuestionService {
     public List<QuestionDTO> getListQuestionDTO(List<Question> list) {
         return list.stream().
                 map(question -> new QuestionDTO(question.getId(), question.getDescription(),
-                        question.getImage(), getListAnswerDTO(answerRepository.findAll()))).
+                        path(question.getUpload()), getListAnswerDTO(answerRepository.findAll()))).
                 collect(Collectors.toList());
 
     }
@@ -54,7 +54,7 @@ public class JpaQuestionService implements QuestionService {
     @Override
     public QuestionDTO getQuestionDTO(Question question) {
         return new QuestionDTO(question.getId(), question.getDescription(),
-                question.getImage(), getListAnswerDTO(answerRepository.findAll()));
+                path(question.getUpload()), getListAnswerDTO(answerRepository.findAll()));
     }
 
     @Override
@@ -63,9 +63,10 @@ public class JpaQuestionService implements QuestionService {
                 answer.isCorrect());
     }
 
+    //null exception handling
     String path(Upload upload){
         if(upload==null){
-            return "no image";
+            return "-";
         }else {
             return upload.getFullPath();
         }

@@ -5,10 +5,10 @@
 <h1>Spring Boot file upload example ccc</h1>
 
 <form method="POST" th:action="@{/uploadFile}" enctype="multipart/form-data">
-    <input type="file" name="file"/> <br/><br/>
+    <input type="file" name="file"/>
+    <br>Pic <input type="radio" name="dir" value="/home/john/Pictures"/>
+    <br>Video <input type="radio" name="dir" value="/home/john/Videos"/></br>
     <button type="submit">Submit</button>
-    <input type="hidden" name="dir" value="/home/john/Pictures"/>
 </form>
-
 </body>
 </html>
