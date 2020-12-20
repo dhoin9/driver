@@ -1,6 +1,7 @@
 package pl.coderslab.question;
 
 import lombok.Data;
+import pl.coderslab.upload.Upload;
 
 import javax.persistence.*;
 
@@ -11,8 +12,11 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String description;
-    private String image;
     private boolean correct;
     @ManyToOne
     private Question question;
+    @ManyToOne
+    private Upload upload;
+
+
 }

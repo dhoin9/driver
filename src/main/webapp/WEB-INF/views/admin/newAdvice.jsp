@@ -7,8 +7,7 @@
 
 </head>
 <body>
-<h1>New question</h1>
-
+<h1>New advice</h1>
 
 <form:form method="post" modelAttribute="advice" >
 
@@ -16,6 +15,7 @@
     <br> Description:<form:input path="description"></form:input>
     Question:<form:select path="question" items="${questions}" itemLabel="description" itemValue="id" multiple="yes"></form:select>
     <br>Image:<form:input path="video"></form:input>
+<br>img<form:input type="file"  action="@{/uploadFile}"  path="uploadDir" enctype="multipart/form-data"></form:input>
 
     <input type="submit" value="Save">
 

@@ -3,6 +3,7 @@ package pl.coderslab.users2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.advice.Advice;
 import pl.coderslab.question.Answer;
@@ -11,12 +12,18 @@ import pl.coderslab.question.Question;
 import java.util.List;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @PostMapping("/new")
+    public String newUser(){
+return "hello";
     }
 
 //    @GetMapping("/create-user")

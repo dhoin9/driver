@@ -2,6 +2,7 @@ package pl.coderslab.advice;
 
 import org.springframework.stereotype.Component;
 import pl.coderslab.question.QuestionService;
+import pl.coderslab.upload.FileService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,10 +12,12 @@ import java.util.stream.Collectors;
 public class JpaAdviceService implements AdviceService {
     private final AdviceRepository adviceRepository;
     private final QuestionService questionService;
+    private final FileService fileService;
 
-    public JpaAdviceService(AdviceRepository adviceRepository, QuestionService questionService) {
+    public JpaAdviceService(AdviceRepository adviceRepository, QuestionService questionService, FileService fileService) {
         this.adviceRepository = adviceRepository;
         this.questionService = questionService;
+        this.fileService = fileService;
     }
 
 
@@ -40,6 +43,7 @@ public class JpaAdviceService implements AdviceService {
 
     @Override
     public void saveAdvice(Advice advice) {
+
         advice.setDateTime(LocalDateTime.now());
         adviceRepository.save(advice);
     }

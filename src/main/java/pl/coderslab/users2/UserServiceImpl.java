@@ -7,9 +7,7 @@ import pl.coderslab.question.Answer;
 import pl.coderslab.question.AnswerRepository;
 import pl.coderslab.question.Question;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,7 +41,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addPoints(CurrentUser currentUser, List<Answer> answers, List<Question> questionsList, Advice advice) {
-        if(checkQuestion(answers)/sumPoints(questionsList)>0.7){
+
+    }
+
+
+    public void addPoints(CurrentUser currentUser, Map<Long,List<Answer>> answers, Advice advice) {
+        if(checkQuestion(answers)/(float) advice.getQuestion().size()>0.7){
        AppUser user = currentUser.getAppUser();
        user.getPassedAdvice().add(advice);
        System.out.println(user.getPassedAdvice());
@@ -55,8 +58,8 @@ public class UserServiceImpl implements UserService {
     public int checkQuestion(List<Answer> answers) {
         int sum = 0;
         for(Answer answer:answers){
-            if(answer.isCorrect()==true){
-                sum+=1;
+            if(answer.isCorrect()==false){
+                break;
             }
         }
         return sum;
@@ -72,5 +75,25 @@ public class UserServiceImpl implements UserService {
     }
         return sum;
 }
+    public float checkQuestion(Map<Long,List<Answer>> answers){
+        float sum=0;
+        for(Map.Entry<Long,List<Answer>> entry : answers.entrySet()){
+            if(equalList(entry.getValue(),correctAnswers(entry.getKey()))){
+               sum+=1;
+            }
+        }
+        return sum;
+    }
+    boolean equalList(List<Answer> list1, List<Answer> list2 ){
+        return  list1.size() == list2.size() && list1.containsAll(list2)&&list2.containsAll(list1);
 
+    }
+    List<Answer> correctAnswers(long id){
+        List<Answer> listCorrect= new ArrayList<>();
+        for(Answer answer:answerRepository.getAllByQuestionId(id)){
+            if(answer.isCorrect()){
+                listCorrect.add(answer);
+            }
+        }return listCorrect;
+    }
 }

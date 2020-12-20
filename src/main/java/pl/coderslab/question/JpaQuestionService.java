@@ -2,6 +2,7 @@ package pl.coderslab.question;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
+import pl.coderslab.upload.Upload;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +45,8 @@ public class JpaQuestionService implements QuestionService {
     @Override
     public List<AnswerDTO> getListAnswerDTO(List<Answer> list) {
         return list.stream().
-                map(answer -> new AnswerDTO(answer.getId(), answer.getDescription(), answer.getImage(),
+                map(answer -> new AnswerDTO(answer.getId(), answer.getDescription(),
+                        path(answer.getUpload()),
                         answer.isCorrect())).
                 collect(Collectors.toList());
     }
@@ -57,7 +59,15 @@ public class JpaQuestionService implements QuestionService {
 
     @Override
     public AnswerDTO getAnswerDTO(Answer answer) {
-        return new AnswerDTO(answer.getId(), answer.getDescription(), answer.getImage(),
+        return new AnswerDTO(answer.getId(), answer.getDescription(),  path(answer.getUpload()),
                 answer.isCorrect());
+    }
+
+    String path(Upload upload){
+        if(upload==null){
+            return "no image";
+        }else {
+            return upload.getFullPath();
+        }
     }
 }

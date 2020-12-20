@@ -22,6 +22,10 @@ public class Advice {
     private String video;
     @OneToMany
     private List<Question> question;
+    @Column(name = "upload_dir")
+    private String uploadDir;
+
+
 
     @Override
     public String toString() {

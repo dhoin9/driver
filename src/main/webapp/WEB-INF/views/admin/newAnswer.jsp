@@ -7,8 +7,7 @@
 
 </head>
 <body>
-<h1>New question</h1>
-
+<h1>New answer</h1>
 
 <form:form method="post" modelAttribute="answer" >
 
